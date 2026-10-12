@@ -1,17 +1,17 @@
 const nameInput = document.getElementById('name-input');
 const addBtn = document.getElementById('add-btn');
 const attendanceList = document.getElementById('attendance-list');
+const totalCount = document.getElementById('total-count');
+const clearBtn = document.getElementById('clear-btn');
+
+let count = 0;
 
 addBtn.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (name === '') return;
 
   const now = new Date();
-  
-  // Formato de fecha: DD/MM/AAAA
   const date = now.toLocaleDateString();
-
-  // Formato de hora: HH:MM:SS (con segundos)
   const time = now.toLocaleTimeString([], { 
     hour: '2-digit', 
     minute: '2-digit', 
@@ -26,4 +26,15 @@ addBtn.addEventListener('click', () => {
 
   attendanceList.appendChild(li);
   nameInput.value = '';
+
+  // Actualizar contador
+  count++;
+  totalCount.textContent = count;
+});
+
+// Limpiar toda la lista
+clearBtn.addEventListener('click', () => {
+  attendanceList.innerHTML = '';
+  count = 0;
+  totalCount.textContent = count;
 });
